@@ -2,6 +2,9 @@ package theatricalplays;
 
 public class Performance {
 
+  public static final String TRAGEDY = "tragedy";
+  public static final String COMEDY = "comedy";
+
   public String playID;
   public int audience;
 
@@ -10,12 +13,12 @@ public class Performance {
     this.audience = audience; //nombre de spectateurs.
   }
 
-  //getteur pour recuperer playID
+  //Getteur pour récupérer playID
   public String getPlayID(){
     return playID;
   }
 
-  //recuperer le type de la piece de théâtre a partir de son id
+  //Récupérer le type de la pièce de théâtre à partir de son Id
   public String getPlayTypeById(String playID) {
     if ("hamlet".equals(playID) || "Othello".equals(playID)) {
         return "tragedy";
@@ -32,7 +35,7 @@ public class Performance {
     }
   }
 
-  //recuperer le type de la piece de théâtre a partir de son id
+  //Récupérer le type de la pièce de théâtre à partir de son Id
   public String getPlayNameById(String playID) {
     if ("hamlet".equals(playID)) {
         return "Hamlet";
@@ -49,6 +52,40 @@ public class Performance {
     else {
         throw new Error("unknown play id: " + playID + "please add it if it is new");
     }
+  }
+
+  //Methode pour calculer le montant cumulé
+  public double calculateAmount(){
+    
+    double totalAmount = 0;
+
+    switch (getPlayTypeById(playID)) {
+      case TRAGEDY:
+        totalAmount = 40000;
+        if (audience > 30) {
+          totalAmount += 1000 * (audience - 30);
+        }
+        break;
+      case COMEDY:
+        totalAmount = 30000;
+        if (audience > 20) {
+          totalAmount += 10000 + 500 * (audience - 20);
+        }
+        totalAmount += 300 * audience;
+        break;
+      default:
+        throw new Error("unknown type: ${playType}");
+    }
+    return totalAmount;
+  }
+
+  //Methode pour calculer les credits cumulés
+  public int calculateVolumeCredits(){
+    int volumeCredits = 0;
+    volumeCredits += Math.max(audience - 30, 0); 
+    if ("comedy".equals(getPlayTypeById(playID))) volumeCredits += Math.floor(audience / 5); 
+
+    return volumeCredits;
   }
 
 
