@@ -4,13 +4,21 @@ public class Performance {
 
   public static final String TRAGEDY = "tragedy";
   public static final String COMEDY = "comedy";
+  public static final String HISTORY = "history";
 
   public String playID;
   public int audience;
+  private String playType;
 
   public Performance(String playID, int audience) {
     this.playID = playID; //id de la pièce de théâtre jouée.
     this.audience = audience; //nombre de spectateurs.
+    this.playType = getPlayTypeById(playID); // recuperer playType
+
+    //contrôle sur le type de pièce à la création de l'objet
+    if (this.playType == null) { 
+      throw new IllegalArgumentException("Unknown play type for play ID: " + playID + "please add it if it is new");
+    }
   }
 
   //Getteur pour récupérer playID
@@ -18,60 +26,56 @@ public class Performance {
     return playID;
   }
 
+  //Getteur pour récupérer playType
+  public String getPlayType(){
+    return playType;
+  }
+
+
+
+
   //Récupérer le type de la pièce de théâtre à partir de son Id
   public String getPlayTypeById(String playID) {
-    if ("hamlet".equals(playID) || "Othello".equals(playID)) {
-        return "tragedy";
-    } if ("as-like".equals(playID)) {
-        return "comedy";
-    } if ("as-like".equals(playID)) {
-        return "pastoral";
-    }
-    else if ("henry-v".equals(playID)) {
-        return "history";
-    }
-    else {
-        throw new Error("unknown play id: " + playID + "please add it if it is new");
+    switch (playID) {
+      case "hamlet":
+      case "Othello":
+          return TRAGEDY;
+      case "as-like":
+          return COMEDY; 
+      case "henry-v":
+          return HISTORY;
+      default:
+          return null; 
     }
   }
 
   //Récupérer le type de la pièce de théâtre à partir de son Id
   public String getPlayNameById(String playID) {
-    if ("hamlet".equals(playID)) {
-        return "Hamlet";
-    }
-    if ("as-like".equals(playID)) {
-        return "As You Like It";
-    } 
-    if ("henry-v".equals(playID)) {
-        return "Henry V";
-    } 
-    else if ("Othello".equals(playID)){
-      return "Othello";
-    }
-    else {
-        throw new Error("unknown play id: " + playID + "please add it if it is new");
+    switch (playID) {
+      case "hamlet":
+          return "Hamlet";
+      case "as-like":
+          return "As You Like It"; 
+      case "Othello" :
+          return "Othello";
+      case "henry-v":
+          return "Henry V";
+      default:
+          return null; 
     }
   }
 
-  //Methode pour calculer le montant cumulé
+  //Montant cumulé
   public double calculateAmount(){
     
     double totalAmount = 0;
 
     switch (getPlayTypeById(playID)) {
       case TRAGEDY:
-        totalAmount = 40000;
-        if (audience > 30) {
-          totalAmount += 1000 * (audience - 30);
-        }
+        totalAmount = calculateTragedyAmount();
         break;
       case COMEDY:
-        totalAmount = 30000;
-        if (audience > 20) {
-          totalAmount += 10000 + 500 * (audience - 20);
-        }
-        totalAmount += 300 * audience;
+        totalAmount = calculateComedyAmount();
         break;
       default:
         throw new Error("unknown type: ${playType}");
@@ -79,14 +83,50 @@ public class Performance {
     return totalAmount;
   }
 
-  //Methode pour calculer les credits cumulés
+  //Crédits cumulés
   public int calculateVolumeCredits(){
     int volumeCredits = 0;
-    volumeCredits += Math.max(audience - 30, 0); 
-    if ("comedy".equals(getPlayTypeById(playID))) volumeCredits += Math.floor(audience / 5); 
+    volumeCredits = calculateVolumeCreditsForTragedy(volumeCredits); 
+    volumeCredits = calculateVolumeCreditsForComedy(volumeCredits); 
 
     return volumeCredits;
   }
+
+  //Montant cumulé pour COMEDY
+  private double calculateComedyAmount() {
+    double totalAmount;
+    totalAmount = 30000;
+    if (audience > 20) {
+      totalAmount += 10000 + 500 * (audience - 20);
+    }
+    totalAmount += 300 * audience;
+    return totalAmount;
+  }
+
+  //Montant cumulé pour TRAGEDY
+  private double calculateTragedyAmount() {
+    double totalAmount;
+    totalAmount = 40000;
+    if (audience > 30) {
+      totalAmount += 1000 * (audience - 30);
+    }
+    return totalAmount;
+  }
+
+  //CREDIT COMEDY
+  private int calculateVolumeCreditsForComedy(int volumeCredits) {
+    if ("comedy".equals(getPlayTypeById(playID))) volumeCredits += Math.floor(audience / 5);
+    return volumeCredits;
+  }
+
+  //CREDIT TRAGEDY
+  private int calculateVolumeCreditsForTragedy(int volumeCredits) {
+    volumeCredits += Math.max(audience - 30, 0);
+    return volumeCredits;
+  }
+
+  
+  
 
 
 }
