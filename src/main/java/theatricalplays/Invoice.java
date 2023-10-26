@@ -11,4 +11,5 @@ public class Invoice { //Facture
     this.customer = customer; //les informations du client (nom+id)
     this.performances = performances; //liste des représentations associées à la facture.
   }
+
 }

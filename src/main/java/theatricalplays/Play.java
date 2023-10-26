@@ -9,4 +9,6 @@ public class Play {
     this.name = name; //nom de la pièce de théâtre.
     this.type = type; //type de la pièce de théâtre.
   }
+
+  
 }
