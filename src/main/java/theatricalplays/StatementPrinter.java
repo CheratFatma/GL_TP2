@@ -16,12 +16,12 @@ public class StatementPrinter {
     for (Performance perf : invoice.performances) {
         double thisAmount = perf.calculateAmount();
 
-        result.append( String.format("  %s: %s (%s seats)\n", perf.getPlayNameById(perf.getPlayID()), frmt.format(thisAmount / 100), perf.audience));
+        result.append( String.format("  %s: %s (%s seats)\n", perf.getPlayNameById(perf.getPlayID()), frmt.format(thisAmount), perf.audience));//ne pas diviser par 100
 
         totalAmount += thisAmount;
         totalVolumeCredits += perf.calculateVolumeCredits();
     }
-        result.append(String.format("Amount owed is %s\n", frmt.format(totalAmount / 100)));
+        result.append(String.format("Amount owed is %s\n", frmt.format(totalAmount)));//ne pas diviser par 100
         result.append(String.format("You earned %s credits\n", totalVolumeCredits));
 
         return result.toString();

@@ -95,20 +95,20 @@ public class Performance {
   //Montant cumulé pour COMEDY
   private double calculateComedyAmount() {
     double totalAmount;
-    totalAmount = 30000;
+    totalAmount = 300.0;
     if (audience > 20) {
-      totalAmount += 10000 + 500 * (audience - 20);
+      totalAmount += 100.0 + 5.0 * (audience - 20);
     }
-    totalAmount += 300 * audience;
+    totalAmount += 3.0 * audience;
     return totalAmount;
   }
 
   //Montant cumulé pour TRAGEDY
   private double calculateTragedyAmount() {
     double totalAmount;
-    totalAmount = 40000;
+    totalAmount = 400.0;
     if (audience > 30) {
-      totalAmount += 1000 * (audience - 30);
+      totalAmount += 10.0 * (audience - 30);
     }
     return totalAmount;
   }
