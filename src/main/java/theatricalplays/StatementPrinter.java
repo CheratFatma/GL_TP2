@@ -6,7 +6,7 @@ import java.util.Locale;
 public class StatementPrinter {
  
   public String print(Invoice invoice) { 
-    int totalAmount = 0;
+    double totalAmount = 0.0;//utiliser double
     int totalVolumeCredits = 0;
     StringBuffer result = new StringBuffer();
 

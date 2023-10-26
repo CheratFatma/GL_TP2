@@ -68,7 +68,7 @@ public class Performance {
   //Montant cumulé
   public double calculateAmount(){
     
-    double totalAmount = 0;
+    double totalAmount = 0.0;//utiliser double
 
     switch (getPlayTypeById(playID)) {
       case TRAGEDY:
@@ -115,7 +115,7 @@ public class Performance {
 
   //CREDIT COMEDY
   private int calculateVolumeCreditsForComedy(int volumeCredits) {
-    if ("comedy".equals(getPlayTypeById(playID))) volumeCredits += Math.floor(audience / 5);
+    if ("comedy".equals(getPlayTypeById(playID))) volumeCredits +=(int) Math.floor(audience / 5);//utiliser cast pour obtenir un entier
     return volumeCredits;
   }
 
