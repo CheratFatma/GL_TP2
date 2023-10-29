@@ -5,6 +5,7 @@ plugins {
   jacoco
   checkstyle
   pmd
+  application
 }
 
 repositories {
@@ -58,3 +59,12 @@ pmd {
     "category/java/security.xml",
   )
 }
+
+
+
+
+
+
+
+
+

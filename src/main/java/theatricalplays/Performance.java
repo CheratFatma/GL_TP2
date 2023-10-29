@@ -31,9 +31,6 @@ public class Performance {
     return playType;
   }
 
-
-
-
   //Récupérer le type de la pièce de théâtre à partir de son Id
   public String getPlayTypeById(String playID) {
     switch (playID) {
@@ -113,13 +110,13 @@ public class Performance {
     return totalAmount;
   }
 
-  //CREDIT COMEDY
+  //Crédits cumulés pour Comedy
   private int calculateVolumeCreditsForComedy(int volumeCredits) {
     if ("comedy".equals(getPlayTypeById(playID))) volumeCredits +=(int) Math.floor(audience / 5);//utiliser cast pour obtenir un entier
     return volumeCredits;
   }
 
-  //CREDIT TRAGEDY
+  //Crédits cumulés pour Tragedy
   private int calculateVolumeCreditsForTragedy(int volumeCredits) {
     volumeCredits += Math.max(audience - 30, 0);
     return volumeCredits;
