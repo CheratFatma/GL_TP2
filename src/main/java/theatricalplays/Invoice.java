@@ -3,7 +3,7 @@ package theatricalplays;
 import java.util.List;
 
 public class Invoice { 
-
+    
     public String customer; 
     public List<Performance> performances; 
 
@@ -11,4 +11,5 @@ public class Invoice {
         this.customer = customer; 
         this.performances = performances; 
     }
+    
 }

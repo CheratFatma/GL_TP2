@@ -15,6 +15,7 @@ public class StatementPrinter {
                 this.totalVolumeCredits = 0;
                 this.frmt = NumberFormat.getCurrencyInstance(Locale.US);
         }
+        
 
         public String toText() { 
                 StringBuffer result = new StringBuffer();
@@ -63,6 +64,3 @@ public class StatementPrinter {
                 return result.toString();
         }
 }
-
-
-
