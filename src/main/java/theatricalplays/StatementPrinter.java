@@ -8,6 +8,7 @@ public class StatementPrinter {
         private int totalVolumeCredits;
         private double totalAmount;
         private NumberFormat frmt;
+       
 
         public StatementPrinter(Invoice invoice) {
                 this.invoice = invoice;
@@ -15,20 +16,22 @@ public class StatementPrinter {
                 this.totalVolumeCredits = 0;
                 this.frmt = NumberFormat.getCurrencyInstance(Locale.US);
         }
-        
 
-        public String toText() { 
+        public String toText() {
                 StringBuffer result = new StringBuffer();
 
                 result.append(String.format("Statement for %s\n", invoice.customer));
 
                 for (Performance perf : invoice.performances) {
-                        double thisAmount = perf.calculateAmount();
+                        Play play = perf.getPlay();
+                       
+                        double thisAmount = play.calculateAmount();
 
-                        result.append( String.format("  %s: %s (%s seats)\n", perf.getPlayNameById(perf.getPlayID()), frmt.format(thisAmount), perf.audience));
+                        result.append( String.format("  %s: %s (%s seats)\n",play.name , frmt.format(thisAmount), perf.getAudience()));
 
                         totalAmount += thisAmount;
-                        totalVolumeCredits += perf.calculateVolumeCredits();
+                        totalVolumeCredits += play.calculateVolumeCredits();
+               
                 }
                 result.append(String.format("Amount owed is %s\n", frmt.format(totalAmount)));
                 result.append(String.format("You earned %s credits\n", totalVolumeCredits));
@@ -47,11 +50,12 @@ public class StatementPrinter {
                 );
 
                 for (Performance perf : invoice.performances) {
-                        double thisAmount = perf.calculateAmount();
+                        Play play = perf.getPlay();
+                        double thisAmount = play.calculateAmount();
                         totalAmount += thisAmount;
-                        totalVolumeCredits += perf.calculateVolumeCredits();
-                        result.append("<tr>\n<td>" + perf.getPlayNameById(perf.getPlayID()) + "</td>\n" +
-                        "<td>" + perf.audience + "</td>\n" +
+                        totalVolumeCredits += play.calculateVolumeCredits();
+                        result.append("<tr>\n<td>" + play.name + "</td>\n" +
+                        "<td>" + perf.getAudience() + "</td>\n" +
                         "<td>" + frmt.format(thisAmount) + "</td>\n</tr>\n");
                 }
 
@@ -61,6 +65,9 @@ public class StatementPrinter {
                 "<td>" + totalVolumeCredits + "</td>\n</tr>\n");
                 result.append("</table>\n<p><i>Payment is required under 30 days. We can break your knees if you don't do so</i></p>\n</body>\n</html>");
 
+                System.out.println(result.toString());
+
                 return result.toString();
         }
 }
+
