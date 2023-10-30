@@ -69,7 +69,7 @@ public class StatementPrinterTests {
     }
 
     @Test
-    void toTextTestForTragedyWithAudienceEqual20() {
+    void toTextTestForComedyWithAudienceEqual20() {
         Invoice invoice = new Invoice(bigCoCustomer, List.of(
             new Performance("as-like", 20,AsYouLikeItPlay20)));
 
