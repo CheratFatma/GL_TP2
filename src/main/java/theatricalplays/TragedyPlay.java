@@ -7,12 +7,16 @@ public class TragedyPlay extends Play{
     }
 
     @Override
-    public double calculateAmount(){
+    public double calculateAmount(Customer customer){
     double totalAmount = 0.0;
 
     switch (type) {
       case TRAGEDY:
         totalAmount = 400.0;
+        if (customer.getLoyaltyPoints() > 150) {
+            totalAmount -= 15;
+            customer.setLoyaltyPoints(customer.getLoyaltyPoints() - 150);
+        }
         if (performance.getAudience() > 30) {
         totalAmount += 10.0 * (performance.getAudience() - 30);
         }        

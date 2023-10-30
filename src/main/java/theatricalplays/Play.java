@@ -9,8 +9,6 @@ public abstract class Play {
 
   public static final String COMEDY = "comedy";
   public static final String TRAGEDY = "tragedy";
-
-
   
   public Play(String name, String type,Performance performance) {
     this.name = name; 
@@ -18,9 +16,10 @@ public abstract class Play {
     this.performance = performance; 
   }
   
-  public abstract double calculateAmount();
+  public abstract double calculateAmount(Customer customer);
   public abstract int calculateVolumeCredits();
 
+  
 }
 
 

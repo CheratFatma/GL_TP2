@@ -3,7 +3,6 @@ package theatricalplays;
 public class Performance {
   public String playID;
   public int audience;
-
   private Play play;
 
 
