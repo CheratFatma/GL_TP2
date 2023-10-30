@@ -21,13 +21,13 @@ public class StatementPrinterTests {
 
 
 
-    Play HamletPlay = new Play("Hamlet","tragedy",p1);
-    Play AsYouLikeItPlay = new Play("As You Like It","comedy",p2);
-    Play OthelloPlay = new Play("Othello","tragedy",p3);
-    Play HenryVPlay = new Play("Henry V","history",p4);
+    Play HamletPlay = new TragedyPlay("Hamlet","tragedy",p1);
+    Play AsYouLikeItPlay = new ComedyPlay("As You Like It","comedy",p2);
+    Play OthelloPlay = new TragedyPlay("Othello","tragedy",p3);
+    Play HenryVPlay = new TragedyPlay("Henry V","history",p4);
 
-    Play HamletPlay30 = new Play("Hamlet","tragedy",p5);
-    Play AsYouLikeItPlay20 = new Play("As You Like It","comedy",p6);
+    Play HamletPlay30 = new TragedyPlay("Hamlet","tragedy",p5);
+    Play AsYouLikeItPlay20 = new ComedyPlay("As You Like It","comedy",p6);
 
 
 
@@ -76,11 +76,6 @@ public class StatementPrinterTests {
         verify(result);
     }
 
-
-   
-
-
-
     @Test
     void toHTMLTest() {
         Invoice invoice = new Invoice("BigCo", List.of(
@@ -94,20 +89,3 @@ public class StatementPrinterTests {
     }
 }
  
-/* 
- @Test
-    void toHTMLTest2() {
-        Invoice invoice = new Invoice("BigCo", List.of(
-            new Performance("hamlet", 55),
-            new Performance("as-like", 35),
-            new Performance("Othello", 40),
-            new Performance("henry-v", 53),
-            new Performance("hamlet", 30),
-            new Performance("as-like", 20)       
-        ));
-        
-        StatementPrinter statementPrinter = new StatementPrinter(invoice);
-        String result = statementPrinter.toHTML();
-        verify(result);
-    }
-} */
